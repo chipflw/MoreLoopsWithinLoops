@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Chip Daniel.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -53,7 +53,47 @@ def draw_upside_down_wall(rectangle, n, window):
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
 
+    p1x = rectangle.corner_1.x
+    p1y = rectangle.corner_1.y
+    p2x = rectangle.corner_2.x
+    p2y = rectangle.corner_2.y
+    width = p1y - p2y
+    height = p2x - p1x
 
+    dx = -(width / 2)
+    dy = height
+
+    rectangle.attach_to(window)
+
+    for k in range(1, n):
+        p1x = p1x - dx
+        p2x = p2x - dx
+        p1y = p1y - dy
+        p2y = p2y - dy
+        newp1 = rg.Point(p1x, p1y)
+        newp2 = rg.Point(p2x, p2y)
+        newrec = rg.Rectangle(newp1, newp2)
+        newrec.attach_to(window)
+
+        np1x = p1x - width
+        np2x = p2x - width
+        newerp1 = rg.Point(np1x, p1y)
+        newerp2 = rg.Point(np2x, p2y)
+        newerrec = rg.Rectangle(newerp1, newerp2)
+        newerrec.attach_to(window)
+
+        for i in range(k - 1):
+            np1x = np1x - width
+            np2x = np2x - width
+            newerp1 = rg.Point(np1x, p1y)
+            newerp2 = rg.Point(np2x, p2y)
+            newerrec = rg.Rectangle(newerp1, newerp2)
+            newerrec.attach_to(window)
+
+
+
+
+    window.render()
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
